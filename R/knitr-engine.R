@@ -674,7 +674,7 @@ eng_python_autoprint <- function(captured, options) {
     .engine_context$pending_plots$push(knitr::include_graphics(path))
     return("")
 
-  } else if (inherits(value, "pandas.core.frame.DataFrame")) {
+} else if (inherits(value, "pandas.core.frame.DataFrame") || inherits(value, "pandas.core.series.Series")) {
 
       py_capture_output({
       data <- as_r_value(value$`datatable`())
