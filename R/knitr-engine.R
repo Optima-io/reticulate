@@ -676,7 +676,11 @@ eng_python_autoprint <- function(captured, options) {
 
   } else if (inherits(value, "pandas.core.frame.DataFrame")) {
 
-    return(captured)
+      py_capture_output({
+      data <- as_r_value(value$`datatable`())
+    })
+    .engine_context$pending_plots$push(knitr::raw_html(data))
+    return("")
 
   } else if (isHtml && py_has_method(value, "_repr_html_")) {
 
